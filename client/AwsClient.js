@@ -1,16 +1,16 @@
 /*
  * AWS Iot Client for raspberry
  * Brunno Cunha
- * 19/04/2016
+ * 26/04/2016
  * Version: 1.0.0
  */
 var awsIot = require('aws-iot-device-sdk');
-var localClient = require('LocalClient');
+//var localClient = require('LocalClient');
 
 var tShadow  = awsIot.thingShadow({
    keyPath: './certs/61c0a19acc-private.pem.key',
   certPath: './certs/61c0a19acc-certificate.pem.crt',
-    caPath: './certs/root-CA.pem',
+    caPath: './certs/Root-CA.pem',
   clientId: 'arduinoSala',
     region: 'us-east-1'
 });
@@ -20,7 +20,7 @@ var clientTokenUpdate;
 var ledState = {"state":{"reported":{"state_mode":"OFF"}}};
     console.log("Led State: " + JSON.stringify(ledState));
 
-//Procedure que conecta na Amazon e registra os tópicos de interesse
+//Procedure que conecta na Amazon e registra os tï¿½picos de interesse
 //Ao conseguir registrar deve reportar com os valor locais dos sensores
 tShadow.on('connect', function() {
 	console.log('connect');
@@ -32,20 +32,20 @@ tShadow.on('connect', function() {
 	   
 });
 
-
+//Log 
 tShadow.on('status', 
     function(thingName, stat, clientToken, stateObject) {
        console.log('received '+stat+' on '+thingName+': '+
                    JSON.stringify(stateObject));
+        //log.add(received, stat, thingname, payload )   
 });
 
-
+//O Delta Ã© o igual ao DESIRED se o REPORTED for difirente
 tShadow.on('delta', 
     function(thingName, stateObject) {
        console.log('received delta '+' on '+thingName+': '+
                    JSON.stringify(stateObject));
 				   
-	//Verificar o Delta e atualizar a partir do mesmo
 	if (stateObject.state.state_mode === "ON"){
 		console.log("Atualizando o Delta para ON");
 		
