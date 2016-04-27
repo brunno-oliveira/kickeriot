@@ -5,8 +5,7 @@
  */
 var mqtt  = require('mqtt');
 
-var client = mqtt.connect('', [
-    { 
+var client = mqtt.connect('', [{ 
         host: 'localhost', 
         clientId: 'raspberry-sub',
         clean: false
@@ -15,7 +14,7 @@ var client = mqtt.connect('', [
 
 client.on('connect', function() {
     console.log('Subscribing to topics..')
-    client.subscribe('example/#', 1);
+    client.subscribe('example/#', 0);
     console.log('Subscribed!');
     console.log('Waiting for messages....');
 });
