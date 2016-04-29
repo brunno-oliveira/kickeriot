@@ -14,6 +14,6 @@
 class Helper{
 	public:
 		getTopics(String sTopicoOriginal, String sTopicos[]);     
-}
+};
 
 #endif
