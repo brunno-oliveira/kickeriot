@@ -12,13 +12,16 @@ var client = mqtt.connect('', [{
     }]
 );
 
+var ledOff = JSON.stringify({ "state_mode": "OFF"});    
+var ledOn = JSON.stringify({ "state_mode": "ON"});
+
 client.on('connect', function() {
 	console.log('Publishing..')
-	client.publish('example/leds/red', 'ON', 
+	client.publish('example/leds/red', ledOn, 
 		[{qos: 1, retain: true}]);
-	client.publish('example/leds/green', 'OFF',
+	client.publish('example/leds/green', ledOn,
 		[{qos: 1, retain: true}]);	
-	client.publish('example/leds/yellow', 'ON',
+	client.publish('example/leds/yellow', ledOn,
 		 [{qos: 1, retain: true}]);
         client.end();
 });
