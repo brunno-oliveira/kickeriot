@@ -26,7 +26,7 @@ tShadow.on('connect', function() {
     console.log('Connecting....');
     tShadow.register('led1');
       
-    tShadow.subscribe('example/leds/red');
+    tShadow.subscribe('example/leds/led1');
    
     //Atualizando o status da thing com o estado atual
     setTimeout( function() {              
@@ -35,7 +35,7 @@ tShadow.on('connect', function() {
           console.log('update shadow failed, operation still in progress');
         }
         else{
-            tShadow.publish('example/leds/red', ledOn);            
+            tShadow.publish('example/leds/led1', ledOn);            
         }        
     }, 5000 );	
 });
