@@ -20,12 +20,11 @@ var client = mqtt.connect('', [{
 exports.publisher = function(topic, message){
     console.log('LocalPublisher...')
     console.log('Topico: ' + topic +  ' Payload: ' + message);    
-    var pubToken = publish(topic, message);
-    console.log(pubToken);
+    publish(topic, message);
 };
 
 var publish = function(topic, message){
-    client.on('connect', function() {
+    client.on('connect', function() {        
         console.log('Publishing to: ' + hostname);                   
         client.publish(topic, message, [{qos: 1, retain: true}]);
         client.end();
