@@ -14,6 +14,8 @@
 class Helper{
 	public:
 		getTopics(String sTopicoOriginal, String sTopicos[]);     
+	private:
+	    int _LimiteArray;
 };
 
 #endif

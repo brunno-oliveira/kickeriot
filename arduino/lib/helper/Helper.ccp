@@ -9,7 +9,12 @@
 #include "Arduino.h"
 #include "Helper.h"
 
-void Helper::getTopics(String sTopicoOriginal, String sTopicos[]){
+Helper::Helper(int LimiteArray)
+{  
+  _LimiteArray = LimiteArray;
+}
+
+void Helper::getTopics(String sTopicoOriginal, String sTopicos[LimiteArray]){
     int count = 1;
     int iTopicoTamanho = sTopicoOriginal.length() + 1;
     char cTopicoriginal[iTopicoTamanho];
