@@ -32,7 +32,7 @@ tShadow.on('connect', function() {
     setTimeout( function() {              
         clientTokenUpdate = tShadow.update('led1', ledState);
         if (clientTokenUpdate === null)       {
-          console.log('update shadow failed, operation still in progress');
+            console.log('update shadow failed, operation still in progress');
         }
         else{
             tShadow.publish('example/leds/led1', ledOn);            

@@ -13,12 +13,22 @@ var client = mqtt.connect('', [{
     }]
 );
 
-exports.publish = function(topic, message){
-    console.log('Connecting to local broker..')
-    console.log('Topico: ' + topic +  ' Payload: ' + message);
+/* 
+ * Função que recebe o Tópico e a Menssagem
+ * para publicar no broker local
+ */
+exports.publisher = function(topic, message){
+    console.log('LocalPublisher...')
+    console.log('Topico: ' + topic +  ' Payload: ' + message);    
+    var pubToken = publish(topic, message);
+    console.log(pubToken);
+};
+
+var publish = function(topic, message){
     client.on('connect', function() {
-        console.log('Connected!');   
+        console.log('Publishing to: ' + hostname);                   
         client.publish(topic, message, [{qos: 1, retain: true}]);
         client.end();
-    });
+    });    
 };
+
