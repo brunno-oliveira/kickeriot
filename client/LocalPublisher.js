@@ -6,26 +6,25 @@
  */
 var mqtt = require('mqtt');
 
-var client = mqtt.connect('', [{ 
-        host: 'localhost', 
-        clientId: 'raspberry-sub',
-        clean: false
-    }]
-);
-
 /* 
  * Função que recebe o Tópico e a Menssagem
  * para publicar no broker local
  */
 exports.publisher = function(topic, message){
+var client = mqtt.connect('', [{ 
+        host: 'localhost', 
+        clientId: 'raspberry-sub',
+        clean: false
+    }]
+);    
     console.log('LocalPublisher...')
     console.log('Topico: ' + topic +  ' Payload: ' + message);     
     client.on('connect', function() {        
         console.log('Publishing to: ');                   
         client.publish(topic, message, [{qos: 1, retain: true}]);
         client.end();
-    });     
-    publish(topic, message);
+    });    
+
 };
 
 var publish = function(topic, message){
