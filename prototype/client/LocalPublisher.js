@@ -63,7 +63,7 @@ var getMessage = function(TipoSensor, JsonMsg){
 var ledMessage = function(objMsg){
     if (objMsg.state_mode === 'ON'){
         return 'ON';
-    } else if (objMsg.state_mode === 'ON') {
+    } else if (objMsg.state_mode === 'OFF') {
         return 'OFF';
     } else {
         console.log('Estado: ' + objMsg.state_mode + 
