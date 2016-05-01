@@ -2,7 +2,7 @@
  * MQTT Led Example
  * Brunno Cunha
  * 19/03/2016
- * Vers√£o 0.1
+ * Vers„o 0.2
  */
 #include <stdio.h>
 #include <string.h>
@@ -13,23 +13,25 @@
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 byte ip[] = { 192, 168, 1, 177 };
 
+#define Limite_Topicos 10
+
 EthernetClient net;
 MQTTClient client;
 
-int Red, Green, Yellow;
+int Led1, Led2, Led3;
 
 void setup() {
   Serial.begin(9600);
   Ethernet.begin(mac, ip);
   client.begin("192.168.1.6", net);
 
-  Red = 5;
-  Green = 6;
-  Yellow = 7;
+  Led1 = 5; //Red
+  Led2 = 6; //Green
+  Led3 = 7; //Yellow
 
-  pinMode(Red, OUTPUT);
-  pinMode(Green, OUTPUT);
-  pinMode(Yellow, OUTPUT);
+  pinMode(Led1, OUTPUT);
+  pinMode(Led2, OUTPUT);
+  pinMode(Led3, OUTPUT);
 
   connect();
 }
@@ -40,7 +42,7 @@ void connect() {
     Serial.print(".");
   }
   Serial.println("\nconnected!");
-  client.subscribe("/example/leds/#");
+  client.subscribe("/example/led/#");
 }
 
 void loop() {
@@ -67,31 +69,31 @@ void messageReceived(String topic, String payload, char * bytes, unsigned int le
   controller(topic, payload);
 }
 
-//Fun√ß√£o que recebe o Topico e a mensagem
+//FunÁ„o que recebe o Topico e a mensagem
 void controller(String topic, String payload) {
-  String sTopicos[4];
+  String sTopicos[Limite_Topicos];
   getTopics(topic, sTopicos);
 
   //printTopics(sTopicos);
   //Serial.println("Message: " + payload);
 
-  //Entra no Topico 'leds'
-  if ((sTopicos[1] == "example") && (sTopicos[2] == "leds")) {
-    if (sTopicos[3] == "red") {
-      doSwitchOnOff(payload, Red);
-    }
-    else if (sTopicos[3] == "green") {
-      doSwitchOnOff(payload, Green);
-    }
-
-    else if (sTopicos[3] == "yellow") {
-      doSwitchOnOff(payload, Yellow);
-    }
-    else {
-      Serial.println("Atencao!! Topico: " + sTopicos[2] +
-                     " nao configurado!");
-    }
+  if ((sTopicos[1] == "example") && (sTopicos[2] == "led")) {
+    ledsTopic(sTopicos, payload);
   }
+}
+
+void ledsTopic(String sTopicos[], String payload){  
+  if (sTopicos[3] == "led1") {
+    doSwitchOnOff(payload, Led1);
+  } 
+  else if (sTopicos[3] == "led2") {
+    doSwitchOnOff(payload, Led2);
+  }
+  else if (sTopicos[3] == "led3") {
+    doSwitchOnOff(payload, Led3);
+  }
+  else {
+    Serial.println("Atencao!! Topico: " + sTopicos[2] + " nao configurado!");} 
 }
 
 //Extrai os Topicos
