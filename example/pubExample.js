@@ -7,8 +7,9 @@ var mqtt = require('mqtt');
 
 var client = mqtt.connect('', [{ 
         host: 'localhost', 
-        clientId: 'raspberry-sub',
-        clean: false
+        clientId: 'raspberry-pub',
+        clean: false,
+        will: {topic : "willtopic", payload: 'something happened here..'},
     }]
 );
 
@@ -19,11 +20,5 @@ client.on('connect', function() {
 	console.log('Publishing..')
 	client.publish('example/leds/red', ledOn, 
 		[{qos: 1, retain: true}]);
-	client.publish('example/leds/green', ledOn,
-		[{qos: 1, retain: true}]);	
-	client.publish('example/leds/yellow', ledOn,
-		 [{qos: 1, retain: true}]);
         client.end();
 });
-
-
