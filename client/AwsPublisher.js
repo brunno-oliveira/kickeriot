@@ -35,7 +35,7 @@ tShadow.on('connect', function() {
             console.log('update shadow failed, operation still in progress');
         }
         else{
-            tShadow.publish('example/leds/led1', ledOn);            
+            tShadow.publish('example/led/led1', ledOn);            
         }        
     }, 5000 );	
 });
