@@ -80,7 +80,7 @@ var publish = function(topic, message){
     
     console.log('Connecting to local broker..')
     client.on('connect', function() {        
-        console.log('Connected and publishing to:');                   
+        console.log('Connected and publishing..');                   
         client.publish(topic, message, [{qos: 1, retain: true}]);
         client.end();
     });    
