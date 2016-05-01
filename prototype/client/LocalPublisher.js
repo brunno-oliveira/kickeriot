@@ -1,8 +1,8 @@
 /*
  * Client for publishing on localhost broker
  * Brunno Cunha
- * 28/04/2016
- * Version: 1.0.0
+ * 01/05/2016
+ * Version: 2.0.0
  */
 var mqtt = require('mqtt');
 

@@ -2,7 +2,7 @@
  * AWS Iot Publisher
  * Brunno Cunha
  * 01/05/2016
- * Version: 25.0.0
+ * Version: 2.0.0
  */
 var awsIot = require('aws-iot-device-sdk');
 
