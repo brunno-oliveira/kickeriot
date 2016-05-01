@@ -70,7 +70,7 @@ var ledMessage = function(objMsg){
                 ' para o sensor do tipo Led não cadastrado!')
         return null;
     }   
-}
+};
 
 var publish = function(topic, message){
     var client = mqtt.connect('', [{ 

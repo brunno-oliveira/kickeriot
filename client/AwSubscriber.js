@@ -1,8 +1,8 @@
 /*
- * AWS Iot Client for raspberry
+ * AWS Iot Subscriber
  * Brunno Cunha
- * 27/04/2016
- * Version: 1.0.0
+ *0 1/05/2016
+ * Version: 2.0.0
  */
 var awsIot = require('aws-iot-device-sdk');
 var mqttLocal = require('./LocalPublisher.js');

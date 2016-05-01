@@ -1,8 +1,8 @@
 /*
- * AWS Iot Client for raspberry
+ * AWS Iot Publisher
  * Brunno Cunha
- * 26/04/2016
- * Version: 1.0.0
+ * 01/05/2016
+ * Version: 25.0.0
  */
 var awsIot = require('aws-iot-device-sdk');
 
