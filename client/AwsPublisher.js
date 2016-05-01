@@ -26,7 +26,7 @@ tShadow.on('connect', function() {
     console.log('Connecting....');
     tShadow.register('led1');
       
-    tShadow.subscribe('example/leds/led1');
+    tShadow.subscribe('example/led/led1');
    
     //Atualizando o status da thing com o estado atual
     setTimeout( function() {              

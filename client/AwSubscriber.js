@@ -18,7 +18,7 @@ var tShadow  = awsIot.thingShadow({
 tShadow.on('connect', function() {
     console.log('Connecting....');
     tShadow.register('led1');      
-    tShadow.subscribe('example/leds/led1'); 	   
+    tShadow.subscribe('example/led/led1'); 	   
     console.log('Connected!!');
 });
 
