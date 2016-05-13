@@ -31,3 +31,4 @@ tShadow.on('message',
        console.log('Message! Topic: '+topic+' Message: ' + message);      
        mqttLocal.publisher(topic, message);
 });
+
