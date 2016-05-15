@@ -15,6 +15,8 @@ var tShadow  = awsIot.thingShadow({
     region: 'us-east-1'
 });
 
+//Para registrar várias things
+// Fazer um for e buscar no banco
 tShadow.on('connect', function() {
     console.log('Connecting....');
     tShadow.register('led1');      

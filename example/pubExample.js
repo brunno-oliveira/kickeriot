@@ -9,7 +9,7 @@ var client = mqtt.connect('', [{
         host: 'localhost', 
         clientId: 'raspberry-pub',
         clean: false,
-        will: {topic : "willtopic", payload: 'something happened here..'},
+        will: {topic : "example/leds/red", payload: 'something happened here..'},
     }]
 );
 

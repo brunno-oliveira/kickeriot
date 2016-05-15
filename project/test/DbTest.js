@@ -1,5 +1,7 @@
-var async = require('async');
+var Promise = require('promise');
 var mysql      = require('mysql');
+var async = require('async');
+
 var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
@@ -7,28 +9,20 @@ var connection = mysql.createConnection({
     database : 'IOT'
 });
 
-
-function getData(err, callback){
-    var resultado;
-    connection.connect();
-    async.series([
-        function(callback){        
-        connection.query('SELECT * from AWS_SUBSCRIBE_INFO',  function(err, results){
-            if (err) {
-                console.log(err);    
-            } else {                
-                resultado = results;
-                callback();
-            }        
-        });        
-    },
-        function(callback){            
-            callback();
-        }
-    ], function(err) {
-        if (err) return next(err);
+exports.getAllData = function(){    
+    var promise = new Promise(function (resolve, reject) {
+        connection.connect();
+        connection.query('SELECT * from AWS_SUBSCRIBE_INFO',
+            function(err, results){
+                if (err) {            
+                    reject(err);
+                } else {                                
+                    resolve(results);                 
+                }        
+        });   
+    });     
+   
+    promise.then(function(){                           
+       return promise;              
     });  
-    connection.end();  
 }
-
-var data = teste();

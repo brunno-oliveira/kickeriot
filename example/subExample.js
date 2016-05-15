@@ -14,7 +14,7 @@ var client = mqtt.connect('', [{
 
 client.on('connect', function() {
     console.log('Subscribing to topics..')
-    client.subscribe('example/#', 0);
+    client.subscribe('example/#', 1);
     console.log('Subscribed!');
     console.log('Waiting for messages....');
 });
