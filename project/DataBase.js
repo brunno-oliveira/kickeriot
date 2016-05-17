@@ -13,7 +13,11 @@ var conn = mysql.createConnection({
     database : 'IOT'
 });
 
-exports.getAllData = function(err, table){
+exports.getAll = function(err, callback){
     conn.connect();
+    var query = conn.query('SELECT * from AWS_SUBSCRIBE_INFO');
+    query.on('result', function(row) {
+        callback(null, row);
+    });
     conn.end();
 }

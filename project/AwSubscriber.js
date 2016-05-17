@@ -6,7 +6,9 @@
  */
 
 var awsIot = require('aws-iot-device-sdk');
+var mysql      = require('mysql');
 //var mqttLocal = require('./LocalPublisher.js');
+
 
 //Verificar se é possivel carregar como string
 var tShadow  = awsIot.thingShadow({
