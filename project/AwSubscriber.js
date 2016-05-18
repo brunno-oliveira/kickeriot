@@ -4,7 +4,7 @@
  * 11/05/2016
  * Version: 1.0.0
  */
-
+var db = require('./DataAcess.js');
 var awsIot = require('aws-iot-device-sdk');
 var mysql      = require('mysql');
 //var mqttLocal = require('./LocalPublisher.js');
@@ -19,18 +19,32 @@ var tShadow  = awsIot.thingShadow({
     region: 'us-east-1'
 });
 
-//Para registrar várias things
-// Fazer um for e buscar no banco
 tShadow.on('connect', function() {
     console.log('Connecting....');
+      
+    RegisterAndSubscribe(function(err, rows){
+        console.log(rows);
+    });
+    
     tShadow.register('led1');      
     tShadow.subscribe('example/led/led1'); 	   
+    
+    
+    
     console.log('Connected!!');
 });
 
 tShadow.on('message', 
     function(topic, message) {
        console.log('Message! Topic: '+topic+' Message: ' + message);      
-       mqttLocal.publisher(topic, message);
+       //mqttLocal.publisher(topic, message);
 });
 
+//Função para buscar os dados da tabela AWS_SUBSCRIBE_INFO
+//que são utilizado para registar tópicos e thins na aws
+function RegisterAndSubscribe(callback){  
+    db.getAllFromTable('AWS_SUBSCRIBE_INFO', function(err, rows, table){
+        if (err) return callback(err);        
+        callback(null, rows)        
+    });
+};

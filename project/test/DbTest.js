@@ -7,9 +7,9 @@ var conn = mysql.createConnection({
     database : 'IOT'
 });
 
-exports.getAwsSubInfo = function(callback) {
-  query("SELECT * FROM AWS_SUBSCRIBE_INFO", callback)
-}
+exports.getAwsSubInfo = function(table, callback) {  
+  query(("SELECT * FROM " + table), callback)
+};
 
 function query(queryString, callback) {
     conn.connect();
