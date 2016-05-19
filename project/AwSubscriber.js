@@ -41,7 +41,7 @@ tShadow.on('message',
 });
 
 //Função para buscar os dados da tabela AWS_SUBSCRIBE_INFO
-//que são utilizado para registar tópicos e thins na aws
+//que são utilizado para registar tópicos e things na aws
 function RegisterAndSubscribe(callback){  
     db.getAllFromTable('AWS_SUBSCRIBE_INFO', function(err, rows, table){
         if (err) return callback(err);        
