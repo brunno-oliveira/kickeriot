@@ -4,17 +4,11 @@
  * 11/05/2016
  * Version: 1.0.0
  */
-var mysql      = require('mysql');
-
-var conn = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : '123456',
-    database : 'IOT'
-});
+var Sequelize = require('sequelize');
+var conn = new Sequelize('employees', 'root', '123456', 'mysql');
 
 exports.getAllFromTable = function(table, callback) {  
-  query(("SELECT * FROM " + table), callback)
+  table.findAll();
 };
 
 function query(queryString, callback) {

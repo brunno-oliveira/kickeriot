@@ -4,11 +4,12 @@
  * 11/05/2016
  * Version: 1.0.0
  */
-var db = require('./DataAcess.js');
+var entities = require('./Entities.js');
 var awsIot = require('aws-iot-device-sdk');
-var mysql      = require('mysql');
+var Sequelize = require('sequelize');
 //var mqttLocal = require('./LocalPublisher.js');
 
+var conn = new Sequelize('IOT', 'root', '123456', 'mysql');
 
 //Verificar se é possivel carregar como string
 var tShadow  = awsIot.thingShadow({
@@ -19,17 +20,13 @@ var tShadow  = awsIot.thingShadow({
     region: 'us-east-1'
 });
 
-tShadow.on('connect', function() {
+tShadow.on('connect', function() {    
     console.log('Connecting....');
-      
-    RegisterAndSubscribe(function(err, rows){
-        console.log(rows);
-    });
-    
+  
+    RegisterAndSubscribe();    
+   
     tShadow.register('led1');      
-    tShadow.subscribe('example/led/led1'); 	   
-    
-    
+    tShadow.subscribe('example/led/led1');    
     
     console.log('Connected!!');
 });
@@ -40,11 +37,16 @@ tShadow.on('message',
        //mqttLocal.publisher(topic, message);
 });
 
-//Função para buscar os dados da tabela AWS_SUBSCRIBE_INFO
-//que são utilizado para registar tópicos e things na aws
-function RegisterAndSubscribe(callback){  
+function RegisterAndSubscribe(){  
+    var ThingTopic = entities.thingTopic();
+             
+    ThingTopic.findAll().then(function(thingTopic){
+        console.log(thingTopic[0].dataValues);
+    });
+
+    /*
     db.getAllFromTable('AWS_SUBSCRIBE_INFO', function(err, rows, table){
         if (err) return callback(err);        
         callback(null, rows)        
-    });
+    });*/
 };

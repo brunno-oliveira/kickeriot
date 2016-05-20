@@ -1,5 +1,4 @@
 var Sequelize = require('sequelize');
-
 var conn = new Sequelize('employees', 'root', '123456', 'mysql');
 
 var Employees = conn.define('employees', {   
@@ -20,8 +19,9 @@ var Departments = conn.define('departments', {
 }, {
     timestamps: false
 });
+
              
-//conn.sync();
+
 Departments.findAll().then(function(Departments){
     console.log(Departments[0].dataValues);
 });
