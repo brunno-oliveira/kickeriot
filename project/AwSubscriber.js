@@ -21,13 +21,10 @@ var tShadow  = awsIot.thingShadow({
 });
 
 tShadow.on('connect', function() {    
-    console.log('Connecting....');
-  
-    RegisterAndSubscribe();    
-   
-    tShadow.register('led1');      
-    tShadow.subscribe('example/led/led1');    
-    
+    console.log('Connecting....');  
+    RegisterAndSubscribe();        
+    //tShadow.register('led1');
+   // tShadow.subscribe('example/led/led1');
     console.log('Connected!!');
 });
 
@@ -38,15 +35,21 @@ tShadow.on('message',
 });
 
 function RegisterAndSubscribe(){  
-    var ThingTopic = entities.thingTopic();
-             
-    ThingTopic.findAll().then(function(thingTopic){
-        console.log(thingTopic[0].dataValues);
+    var ListaThingTopic = entities.thingTopic();             
+    ListaThingTopic.findAll().then(function(thingTopic){                            
+        for (var i = 0, len = thingTopic.length; i < len; i++){            
+            RegiterThing(thingTopic[i].thing);
+            SubscribeTopic(thingTopic[i].topic);
+        };
     });
+};
 
-    /*
-    db.getAllFromTable('AWS_SUBSCRIBE_INFO', function(err, rows, table){
-        if (err) return callback(err);        
-        callback(null, rows)        
-    });*/
+function RegiterThing(thing){        
+    tShadow.register(thing);
+    console.log('Registrando para thing: ' + thing.toString());
+};
+
+function SubscribeTopic(topic){        
+    tShadow.subscribe(topic);
+    console.log('Subscribe para topico ' + topic.toString());
 };

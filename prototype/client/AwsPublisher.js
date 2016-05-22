@@ -24,9 +24,8 @@ var ledOn = JSON.stringify({ "state_mode": "ON"});
 //Ao conseguir registrar deve reportar com os valor locais dos sensores
 tShadow.on('connect', function() {
     console.log('Connecting....');
-    tShadow.register('led1');
-      
-    tShadow.subscribe('example/led/led1');
+    tShadow.register('led1');      
+    tShadow.subscribe('brunno/sala/switch/led1');
    
     //Atualizando o status da thing com o estado atual
     setTimeout( function() {              
@@ -35,7 +34,7 @@ tShadow.on('connect', function() {
             console.log('update shadow failed, operation still in progress');
         }
         else{
-            tShadow.publish('example/led/led1', ledOn);            
+            tShadow.publish('brunno/sala/switch/led1', ledOn);            
         }        
     }, 5000 );	
 });
