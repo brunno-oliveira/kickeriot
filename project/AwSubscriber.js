@@ -1,7 +1,7 @@
 /*
  * Classe para registrar nas things e topicos do Aws IOT
  * Brunno Cunha
- * 11/05/2016
+ * 22/05/2016
  * Version: 1.0.0
  */
 var entities = require('./Entities.js');
@@ -22,16 +22,13 @@ var tShadow  = awsIot.thingShadow({
 
 tShadow.on('connect', function() {    
     console.log('Connecting....');  
-    RegisterAndSubscribe();        
-    //tShadow.register('led1');
-   // tShadow.subscribe('example/led/led1');
+    RegisterAndSubscribe();           
     console.log('Connected!!');
 });
 
-tShadow.on('message', 
-    function(topic, message) {
-       console.log('Message! Topic: '+topic+' Message: ' + message);      
-       //mqttLocal.publisher(topic, message);
+tShadow.on('message', function(topic, message) {
+    console.log('Message! Topic: '+topic+' Message: ' + message);      
+    //mqttLocal.publisher(topic, message);
 });
 
 function RegisterAndSubscribe(){  
@@ -53,3 +50,9 @@ function SubscribeTopic(topic){
     tShadow.subscribe(topic);
     console.log('Subscribe para topico ' + topic.toString());
 };
+
+tShadow.on('timeout',
+    function(thingName, clientToken) {
+       console.log('received timeout on '+thingName+
+                   ' with token: '+ clientToken)
+});
