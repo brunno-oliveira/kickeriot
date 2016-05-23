@@ -4,14 +4,13 @@
  * 22/05/2016
  * Version: 1.0.0
  */
+var mqttLocal = require('./LocalPublisher.js');
 var entities = require('./Entities.js');
 var awsIot = require('aws-iot-device-sdk');
 var Sequelize = require('sequelize');
-//var mqttLocal = require('./LocalPublisher.js');
 
 var conn = new Sequelize('IOT', 'root', '123456', 'mysql');
 
-//Verificar se é possivel carregar como string
 var tShadow  = awsIot.thingShadow({
    keyPath: './certs/61c0a19acc-private.pem.key',
   certPath: './certs/61c0a19acc-certificate.pem.crt',
@@ -28,7 +27,7 @@ tShadow.on('connect', function() {
 
 tShadow.on('message', function(topic, message) {
     console.log('Message! Topic: '+topic+' Message: ' + message);      
-    //mqttLocal.publisher(topic, message);
+    mqttLocal.publisher(topic, message);
 });
 
 function RegisterAndSubscribe(){  
