@@ -27,7 +27,7 @@ tShadow.on('connect', function() {
 
 tShadow.on('message', function(topic, message) {
     console.log('Message! Topic: '+topic+' Message: ' + message);      
-    mqttLocal.publisher(topic, message);
+    mqttLocal.Publisher(topic, message);
 });
 
 function RegisterAndSubscribe(){  

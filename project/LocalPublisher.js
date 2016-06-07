@@ -9,19 +9,21 @@ var mqtt = require('mqtt');
 /* 
  * Função pública pra publicar em broker local
  */
-exports.publisher = function(topic, JsonMsg){
-    console.log('LocalPublisher...')   
-    var TipoSensor = getTipoSensor(topic);    
+exports.Publisher = function(topic, JsonMsg){
+    console.log('LocalPublisher...');   
+    //Valido se o tipo do sensor é tratado
+    var TipoSensor = GetTipoSensor(topic);    
     if (TipoSensor === null) {
         process.on('exit', function() { process.exit(1); });
     }    
     
-    var message = getMessage(TipoSensor, JsonMsg);
+    //Valido se a menssagem do sensor é tratada
+    var message = GetMessage(TipoSensor, JsonMsg);
     if (message === null) {
         process.on('exit', function() { process.exit(1); });
     }
     
-    publish(topic, message);
+    Publish(topic, message);
 };
 
 /*
@@ -29,7 +31,7 @@ exports.publisher = function(topic, JsonMsg){
  * pois ele deve ser o que identifica o tipo do sensor.
  * E validar se esse tipo de sensor está sendo tratado
  */
-var getTipoSensor = function(topic){  
+var GetTipoSensor = function(topic){  
     var SensoresRegistrados = ["switch"]
     var topicArray = topic.split("/");  
         
@@ -47,11 +49,11 @@ var getTipoSensor = function(topic){
 /*
  * Retorna a ação da mensagem em uma STRING
  */
-var getMessage = function(TipoSensor, JsonMsg){
+var GetMessage = function(TipoSensor, JsonMsg){
     var objMsg = JSON.parse(JsonMsg);
     switch (TipoSensor){  
         case 'switch':
-            return ledMessage(objMsg);
+            return SwitchMessage(objMsg);
         break;         
         case 'dht':
             //return
@@ -64,7 +66,7 @@ var getMessage = function(TipoSensor, JsonMsg){
 
 //procura pela mensagem state_mode
 //e retorna a menssagem que sera enviada para o local broker
-var ledMessage = function(objMsg){
+var SwitchMessage = function(objMsg){
     if (objMsg.state_mode === 'ON'){
         return 'ON';
     } else if (objMsg.state_mode === 'OFF') {
@@ -76,7 +78,7 @@ var ledMessage = function(objMsg){
     }   
 };
 
-var publish = function(topic, message){
+var Publish = function(topic, message){
     var client = mqtt.connect('', [{ 
             host: 'localhost', 
             clientId: 'raspberry-sub',
