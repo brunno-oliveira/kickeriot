@@ -38,12 +38,13 @@ var GetTipoSensor = function(topic){
     topicArray.pop();
     var TipoSensor = topicArray.pop();     
     
-    if (SensoresRegistrados.indexOf(TipoSensor) > -1) {
+  /*  if (SensoresRegistrados.indexOf(TipoSensor) > -1) {
         return TipoSensor;
     } else {        
         console.log('Sensor do tipo: ' + TipoSensor + ' não registrado!');  
         return null;
     }
+    */
 };
 
 /*
@@ -67,6 +68,7 @@ var GetMessage = function(TipoSensor, JsonMsg){
 //procura pela mensagem state_mode
 //e retorna a menssagem que sera enviada para o local broker
 var SwitchMessage = function(objMsg){
+    console.log('ObjMsg: ' + objMsg);
     if (objMsg.state_mode === 'ON'){
         return 'ON';
     } else if (objMsg.state_mode === 'OFF') {

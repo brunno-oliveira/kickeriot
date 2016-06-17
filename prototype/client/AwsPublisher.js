@@ -17,18 +17,23 @@ var tShadow  = awsIot.thingShadow({
 var clientTokenUpdate;
 
 var ledState = {"state":{"desired":{"state_mode":"ON"}}};    
-var ledOff = JSON.stringify({ "state_mode": "OFF"});    
-var ledOn = JSON.stringify({ "state_mode": "ON"});
+var ledOff = "OFF";    
+var ledOn ="ON";
+
+var led1 = ('brunno/sala/switch/led1');
+var led2 = ('brunno/sala/switch/led2');
+var led3 = ('brunno/sala/switch/led3');
 
 //Procedure que conecta na Amazon e registra os t�picos de interesse
 //Ao conseguir registrar deve reportar com os valor locais dos sensores
 tShadow.on('connect', function() {
     console.log('Connecting....');
     tShadow.register('led1');      
-    tShadow.subscribe('brunno/sala/switch/led1');
-   
+    tShadow.subscribe('brunno/sala/switch/led1');    
+    console.log(led1 + ledOff);
+    tShadow.publish(led1, ledOff);            
     //Atualizando o status da thing com o estado atual
-    setTimeout( function() {              
+    /*setTimeout( function() {              
         clientTokenUpdate = tShadow.update('led1', ledState);
         if (clientTokenUpdate === null)       {
             console.log('update shadow failed, operation still in progress');
@@ -36,7 +41,7 @@ tShadow.on('connect', function() {
         else{
             tShadow.publish('brunno/sala/switch/led1', ledOn);            
         }        
-    }, 5000 );	
+    }, 5000 );	*/
 });
 
 //O status vem do clientTokenUpdate
