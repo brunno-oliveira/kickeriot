@@ -10,14 +10,14 @@ var mqtt = require('mqtt');
  * Função pública pra publicar em broker local
  */
 exports.publisher = function(topic, msg){
-    console.log('LocalPublisher...');
+   /* console.log('LocalPublisher...');
     console.log('topic: ' + msg);
     console.log('msg: ' + topic);
     
     var TipoSensor = getTipoSensor(topic); 
     
     console.log('TipoSensor: ' + TipoSensor);
-    /*
+    
     if (TipoSensor === null) {
         process.on('exit', function() { process.exit(1); });
     }    
