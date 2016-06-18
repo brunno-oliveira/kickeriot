@@ -9,14 +9,14 @@ var mqtt = require('mqtt');
 /* 
  * Função pública pra publicar em broker local
  */
-exports.publisher = function(topic, JsonMsg){
+exports.publisher = function(topic, msg){
     console.log('LocalPublisher...')   
     var TipoSensor = getTipoSensor(topic);    
     if (TipoSensor === null) {
         process.on('exit', function() { process.exit(1); });
     }    
     
-    var message = getMessage(TipoSensor, JsonMsg);
+    var message = getMessage(TipoSensor, msg);
     if (message === null) {
         process.on('exit', function() { process.exit(1); });
     }
@@ -30,6 +30,7 @@ exports.publisher = function(topic, JsonMsg){
  * E validar se esse tipo de sensor está sendo tratado
  */
 var getTipoSensor = function(topic){      
+    console.log('getTipoSensor... topic: ' + topic);    
     var arrSensores = ["switch"]
     var topicArray = topic.split("/");   
     topicArray.pop();
@@ -45,11 +46,12 @@ var getTipoSensor = function(topic){
 /*
  * Retorna a ação da mensagem em uma STRING
  */
-var getMessage = function(TipoSensor, JsonMsg){
-    var objMsg = JSON.parse(JsonMsg);
+var getMessage = function(TipoSensor, msg){
+    console.log('getMessage...Tipo Sensor:' + TipoSensor
+                + ' message: ' + msg);    
     switch (TipoSensor){  
         case 'switch':
-            return switchMessage(objMsg);
+            return switchMessage(msg);
         break;         
         case 'dht':
             //return
@@ -60,13 +62,13 @@ var getMessage = function(TipoSensor, JsonMsg){
     }
 };
 
-var switchMessage = function(objMsg){
-    if (objMsg.state_mode === 'ON'){
+var switchMessage = function(msg){
+    if (msg.state_mode === 'ON'){
         return 'ON';
-    } else if (objMsg.state_mode === 'OFF') {
+    } else if (msg.state_mode === 'OFF') {
         return 'OFF';
     } else {
-        console.log('Estado: ' + objMsg.state_mode + 
+        console.log('Estado: ' + msg + 
                 ' para o sensor do tipo Led não cadastrado!')
         return null;
     }   

@@ -30,7 +30,7 @@ tShadow.on('connect', function() {
     console.log('Connecting....');
     tShadow.register('led1');      
     tShadow.subscribe('brunno/sala/switch/led1');    
-    console.log(led1 + ledOn);
+    console.log(led1 + ' : ' + ledOn);
     tShadow.publish(led1, ledOn);            
     //Atualizando o status da thing com o estado atual
     /*setTimeout( function() {              
