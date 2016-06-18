@@ -29,8 +29,8 @@ exports.publisher = function(topic, JsonMsg){
  * pois ele deve ser o que identifica o tipo do sensor.
  * E validar se esse tipo de sensor está sendo tratado
  */
-var getTipoSensor = function(topic){  
-    var arrSensores = ["led"]
+var getTipoSensor = function(topic){      
+    var arrSensores = ["switch"]
     var topicArray = topic.split("/");   
     topicArray.pop();
     var TipoSensor = topicArray.pop();     
