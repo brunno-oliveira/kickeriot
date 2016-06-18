@@ -1,8 +1,8 @@
 /*
  * Client for publishing on localhost broker
  * Brunno Cunha
- * 22/05/2016
- * Version: 2.0.0
+ * 18/06/2016
+ * Version: 2.1.0
  */
 var mqtt = require('mqtt');
 
@@ -11,21 +11,20 @@ var mqtt = require('mqtt');
  */
 exports.Publisher = function(topic, message){
     console.log('LocalPublisher...');       
-    console.log('topic: ' + topic + ' topic: ' + message);  
+    console.log('topic: ' + topic + ' message: ' + message);  
     
-    //Valido se o tipo do sensor é tratado
+    //Tipo do sensor e a menssagem são tratadas
     var TipoSensor = GetTipoSensor(topic);    
-    if (TipoSensor === null) {
-        process.on('exit', function() { process.exit(1); });
-    }    
-    
-    //Valido se a menssagem do sensor é tratada
     var message = GetMessage(TipoSensor, message);
-    if (message === null) {
-        process.on('exit', function() { process.exit(1); });
-    }
     
-    Publish(topic, message);
+    
+    if ((message == null) || (TipoSensor == null)) {     
+        console.log('Ocorreu algum erro!!!');
+        console.log('Topic: ' + topic + ' message: ' + message);
+        //publico uma msg para o thing com erro
+    } else {
+        Publish(topic, message);
+    };    
 };
 
 /*
@@ -34,6 +33,7 @@ exports.Publisher = function(topic, message){
  * E validar se esse tipo de sensor está sendo tratado
  */
 var GetTipoSensor = function(topic){  
+    //Adcionair futuramente, PIR, DHT
     var SensoresRegistrados = ["switch"]
     var topicArray = topic.split("/");  
         
@@ -71,9 +71,9 @@ var GetMessage = function(TipoSensor, message){
 //e retorna a menssagem que sera enviada para o local broker
 var SwitchMessage = function(message){
     console.log('SwitchMessage... message: ' + message);
-    if (message === 'ON'){
+    if (message == 'ON'){
         return 'ON';
-    } else if (message === 'OFF') {
+    } else if (message == 'OFF') {
         return 'OFF';
     } else {
         console.log('Estado: ' + message + 
