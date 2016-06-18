@@ -26,7 +26,7 @@ tShadow.on('connect', function() {
 });
 
 tShadow.on('message', function(topic, message) {
-    console.log('Message! Topic: '+topic+' Message: ' + message);      
+    console.log('AwsSuscriber on message! Topic: '+topic+' Message: ' + message);      
     mqttLocal.Publisher(topic, message);
 });
 
