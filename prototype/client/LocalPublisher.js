@@ -48,8 +48,8 @@ var getTipoSensor = function(topic){
 var getMessage = function(TipoSensor, JsonMsg){
     var objMsg = JSON.parse(JsonMsg);
     switch (TipoSensor){  
-        case 'led':
-            return ledMessage(objMsg);
+        case 'switch':
+            return switchMessage(objMsg);
         break;         
         case 'dht':
             //return
@@ -60,7 +60,7 @@ var getMessage = function(TipoSensor, JsonMsg){
     }
 };
 
-var ledMessage = function(objMsg){
+var switchMessage = function(objMsg){
     if (objMsg.state_mode === 'ON'){
         return 'ON';
     } else if (objMsg.state_mode === 'OFF') {
