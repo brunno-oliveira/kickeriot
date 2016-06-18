@@ -11,13 +11,13 @@ var mqtt = require('mqtt');
  */
 exports.publisher = function(topic, msg){
     console.log('LocalPublisher...');
-    consolog.log('topic: ' + msg);
-    consolog.log('msg: ' + topic);
+    console.log('topic: ' + msg);
+    console.log('msg: ' + topic);
     
     var TipoSensor = getTipoSensor(topic); 
     
     console.log('TipoSensor: ' + TipoSensor);
-    
+    /*
     if (TipoSensor === null) {
         process.on('exit', function() { process.exit(1); });
     }    
@@ -27,7 +27,7 @@ exports.publisher = function(topic, msg){
         process.on('exit', function() { process.exit(1); });
     }
     
-    publish(topic, message);
+    publish(topic, message);*/
 };
 
 /*
