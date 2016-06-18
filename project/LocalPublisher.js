@@ -9,8 +9,10 @@ var mqtt = require('mqtt');
 /* 
  * Função pública pra publicar em broker local
  */
-exports.Publisher = function(topic, JsonMsg){
-    console.log('LocalPublisher...');   
+exports.Publisher = function(topic, message){
+    console.log('LocalPublisher...');       
+    console.log('topic: ' + topic + ' topic: ' + message);  
+    
     //Valido se o tipo do sensor é tratado
     var TipoSensor = GetTipoSensor(topic);    
     if (TipoSensor === null) {
@@ -18,7 +20,7 @@ exports.Publisher = function(topic, JsonMsg){
     }    
     
     //Valido se a menssagem do sensor é tratada
-    var message = GetMessage(TipoSensor, JsonMsg);
+    var message = GetMessage(TipoSensor, message);
     if (message === null) {
         process.on('exit', function() { process.exit(1); });
     }
@@ -38,23 +40,21 @@ var GetTipoSensor = function(topic){
     topicArray.pop();
     var TipoSensor = topicArray.pop();     
     
-  /*  if (SensoresRegistrados.indexOf(TipoSensor) > -1) {
+   if (SensoresRegistrados.indexOf(TipoSensor) > -1) {
         return TipoSensor;
     } else {        
         console.log('Sensor do tipo: ' + TipoSensor + ' não registrado!');  
         return null;
-    }
-    */
+    }    
 };
 
 /*
  * Retorna a ação da mensagem em uma STRING
  */
-var GetMessage = function(TipoSensor, JsonMsg){
-    var objMsg = JSON.parse(JsonMsg);
+var GetMessage = function(TipoSensor, message){    
     switch (TipoSensor){  
         case 'switch':
-            return SwitchMessage(objMsg);
+            return SwitchMessage(message);
         break;         
         case 'dht':
             //return
@@ -67,15 +67,15 @@ var GetMessage = function(TipoSensor, JsonMsg){
 
 //procura pela mensagem state_mode
 //e retorna a menssagem que sera enviada para o local broker
-var SwitchMessage = function(objMsg){
-    console.log('ObjMsg: ' + objMsg);
-    if (objMsg.state_mode === 'ON'){
+var SwitchMessage = function(message){
+    console.log('SwitchMessage... message: ' + message);
+    if (message === 'ON'){
         return 'ON';
-    } else if (objMsg.state_mode === 'OFF') {
+    } else if (message === 'OFF') {
         return 'OFF';
     } else {
-        console.log('Estado: ' + objMsg.state_mode + 
-                ' para o sensor do tipo Led não cadastrado!')
+        console.log('Estado: ' + message + 
+                ' para o sensor do tipo Switch não cadastrado!')
         return null;
     }   
 };

@@ -10,7 +10,7 @@ var mqtt = require('mqtt');
  * Função pública pra publicar em broker local
  */
 exports.publisher = function(topic, msg){
-   /* console.log('LocalPublisher...');
+    console.log('LocalPublisher...');
     console.log('topic: ' + msg);
     console.log('msg: ' + topic);
     
@@ -27,7 +27,7 @@ exports.publisher = function(topic, msg){
         process.on('exit', function() { process.exit(1); });
     }
     
-    publish(topic, message);*/
+    publish(topic, message);
 };
 
 /*
