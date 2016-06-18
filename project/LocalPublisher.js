@@ -51,7 +51,9 @@ var GetTipoSensor = function(topic){
 /*
  * Retorna a ação da mensagem em uma STRING
  */
-var GetMessage = function(TipoSensor, message){    
+var GetMessage = function(TipoSensor, message){   
+    console.log('GetMessage.. TipoSensor: '+ TipoSensor 
+            + ' Message:' + message);  
     switch (TipoSensor){  
         case 'switch':
             return SwitchMessage(message);
