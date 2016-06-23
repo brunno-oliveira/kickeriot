@@ -41,8 +41,8 @@ var Publish = function(topic, message){
     
     tShadow.on('connect', function() {    
         console.log('Connected and publishing to aws...');    
-        tShadow.publish(led1, ledOn); 
-        //tShadow.publish(topic, message); 
+        //tShadow.publish(led1, ledOn); 
+        tShadow.publish(topic.toString(), message.toString()); 
     });
 }
 /*
