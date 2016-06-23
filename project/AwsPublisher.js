@@ -34,11 +34,11 @@ exports.Publisher = function(topic, message){
         region: 'us-east-1'
     });        
     console.log('AwsPublisher... ')
-    console.log('Topic: ' + topic + ' Message: ' + message);
+    console.log('Topic: ' + topic + ' Message: ' + topic);
     
     tShadow.on('connect', function() {    
         console.log('Connected and publishing to aws...');    
-        tShadow.publish(led1, ledOn); 
+        tShadow.publish(topic, message); 
     });
     
 }
