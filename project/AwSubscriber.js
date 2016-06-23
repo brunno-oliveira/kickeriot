@@ -30,6 +30,7 @@ tShadow.on('message', function(topic, message) {
     mqttLocal.Publisher(topic, message);
 });
 
+//Será substituida pelo DynamoDB
 function RegisterAndSubscribe(){  
     var ListaThingTopic = entities.thingTopic();             
     ListaThingTopic.findAll().then(function(thingTopic){                            
