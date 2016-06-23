@@ -25,21 +25,24 @@ tShadow.on('connect', function() {
     console.log('AwsPublisher Connected....');    
 });
 */
-exports.Publisher = function(topic, message){
+exports.Publisher = function(topic, message){     
+    console.log('AwsPublisher... Topic: ' + topic + ' Message: ' + message);
+    Publish(topic, message);
+}
+
+var Publish = function(topic, message){
     var tShadow  = awsIot.thingShadow({
         keyPath: './certs/61c0a19acc-private.pem.key',
         certPath: './certs/61c0a19acc-certificate.pem.crt',
         caPath: './certs/Root-CA.pem',
-        clientId: 'Raspberry-Publisher',
+        clientId: 'Raspberry-AwsPublisher',
         region: 'us-east-1'
-    });        
-    console.log('AwsPublisher... Topic: ' + topic + ' Message: ' + message);
+    });
     
     tShadow.on('connect', function() {    
         console.log('Connected and publishing to aws...');    
         tShadow.publish(topic, message); 
     });
-    
 }
 /*
 tShadow.on('timeout',

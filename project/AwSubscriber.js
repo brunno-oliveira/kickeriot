@@ -15,7 +15,7 @@ var tShadow  = awsIot.thingShadow({
    keyPath: './certs/61c0a19acc-private.pem.key',
   certPath: './certs/61c0a19acc-certificate.pem.crt',
     caPath: './certs/Root-CA.pem',
-  clientId: 'Raspberry-Subscriber',
+  clientId: 'Raspberry-AwsSubscriber',
     region: 'us-east-1'
 });
 
