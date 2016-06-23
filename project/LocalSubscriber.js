@@ -5,6 +5,7 @@
  * 22/06/2016
  * Version: 2.0.0
  */
+var awsPub = require('./AwsPublisher.js');
 var mqtt = require('mqtt');
 var client = mqtt.connect('', [{ host: 'localhost' }]);
 
@@ -17,5 +18,5 @@ client.on('connect', function() {
 
 client.on('message', function (topic, message) {
     console.log('Topic: ' + topic.toString() + ' Message: ' + message.toString());	
-    
+    awsPub.Publisher(topic, message);
 });
