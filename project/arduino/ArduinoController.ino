@@ -31,7 +31,7 @@ MQTTClient client;
 int SDcard_SSpin= 4;  
 int Led1, Led2, Led3;
 
-const char *topics = "/brunno/#";
+const char *topics = "/brunno/sala/switch/#";
 
 unsigned long lastMillis = 0; //teste
 
@@ -78,18 +78,17 @@ void loop() {
   }
   
   //teste only 
-  if(millis() - lastMillis > 1000) {
+  if(millis() - lastMillis > 20000) {
     lastMillis = millis();
 
     float fTemp = dht.readTemperature(); 
     float fHum = dht.readHumidity();    
-
     
     dtostrf(fTemp, 5, 2, cTemp);
     dtostrf(fHum, 5, 2, cHum);
     
-    client.publish("/brunno/sala/dht22/dht1/temp", cTemp);
-    client.publish("/brunno/sala/dht22/dht1/hum", cHum);
+    client.publish("brunno/sala/dht22/dht1/temp", cTemp);    
+    client.publish("brunno/sala/dht22/dht1/hum", cHum);
   }
 }
 
