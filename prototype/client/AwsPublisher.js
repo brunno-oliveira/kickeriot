@@ -23,6 +23,7 @@ var ledOn ="ON";
 var led1 = ('brunno/sala/switch/led1');
 var led2 = ('brunno/sala/switch/led2');
 var led3 = ('brunno/sala/switch/led3');
+var dht1Temp = ('brunno/sala/dht22/dht1/temp');
 
 //Procedure que conecta na Amazon e registra os t�picos de interesse
 //Ao conseguir registrar deve reportar com os valor locais dos sensores
@@ -30,8 +31,8 @@ tShadow.on('connect', function() {
     console.log('Connecting....');
     tShadow.register('led1');      
     tShadow.subscribe('brunno/sala/switch/led1');    
-    console.log(led1 + ' : ' + ledOn);
-    tShadow.publish(led1, ledOn);            
+    console.log(dht1Temp + ' : ' + 20);
+    tShadow.publish(dht1Temp, '20');            
     //Atualizando o status da thing com o estado atual
     /*setTimeout( function() {              
         clientTokenUpdate = tShadow.update('led1', ledState);

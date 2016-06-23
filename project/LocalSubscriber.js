@@ -18,5 +18,5 @@ client.on('connect', function() {
 
 client.on('message', function (topic, message) {
     console.log('Topic: ' + topic.toString() + ' Message: ' + message.toString());	
-    awsPub.Publisher(topic, message);
+    awsPub.Publisher(topic.toString(), message.toString());
 });
