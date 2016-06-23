@@ -33,8 +33,7 @@ exports.Publisher = function(topic, message){
         clientId: 'Raspberry-Publisher',
         region: 'us-east-1'
     });        
-    console.log('AwsPublisher... ')
-    console.log('Topic: ' + topic + ' Message: ' + message);
+    console.log('AwsPublisher... Topic: ' + topic + ' Message: ' + message);
     
     tShadow.on('connect', function() {    
         console.log('Connected and publishing to aws...');    
