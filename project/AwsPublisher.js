@@ -34,7 +34,7 @@ exports.Publisher = function(topic, message){
         region: 'us-east-1'
     });        
     console.log('AwsPublisher... ')
-    console.log('Topic: ' + topic + ' Message: ' + topic);
+    console.log('Topic: ' + topic + ' Message: ' + message);
     
     tShadow.on('connect', function() {    
         console.log('Connected and publishing to aws...');    
